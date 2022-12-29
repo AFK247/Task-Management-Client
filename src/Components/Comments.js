@@ -6,15 +6,15 @@ const Comments = ({ handleSubmit, handleNotComplete, handleDelete, task }) => {
   console.log(comments);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/comment/${task?._id}`)
+    fetch(`https://task-server-lemon.vercel.app/comment/${task?._id}`)
       .then((res) => res.json())
       .then((data) => setComments(data));
   }, [task?._id]);
 
   return (
-    <div className="flex bg-green-200 rounded-lg shadow-lg">
+    <div className="flex flex-col md:flex-row bg-green-200 rounded-lg shadow-lg">
 
-      <div class="lg:w-[20vw] w-[40vw] p-6 bg-green-100 border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+      <div class="lg:w-[20vw] md:w-[40vw] w-[80vw] p-6 bg-green-100 border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
         <p class="italic  mb-3 font-normal text-gray-700 dark:text-gray-400">
           {task?.message}
         </p>
@@ -64,12 +64,13 @@ const Comments = ({ handleSubmit, handleNotComplete, handleDelete, task }) => {
         </form>
       </div>
 
-      <div className="p-6 lg:w-[20vw] w-[40vw]">
+      <div className="lg:w-[20vw] p-6 md:w-[40vw] w-[80vw]">
         <h2 className="text-2xl">Comments</h2>
         {comments.map((comment) => (
           <li>{comment.userComment}</li>
         ))}
       </div>
+
     </div>
   );
 };

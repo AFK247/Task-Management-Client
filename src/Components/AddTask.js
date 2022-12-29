@@ -18,7 +18,7 @@ const AddTask = () => {
         image
       };
 
-      fetch(`http://localhost:5000/addtask`, {
+      fetch(`https://task-server-lemon.vercel.app/addtask`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -42,7 +42,7 @@ const AddTask = () => {
     <div className="w-1/2 mx-auto mt-6">
       <form
         onSubmit={handleSubmit}
-        className="mx-auto rounded-lg p-5 bg-gray-400 mt-16"
+        className="mx-auto rounded-lg p-5 bg-blue-200 mt-16"
       >
         <label
           for="message"
@@ -54,14 +54,15 @@ const AddTask = () => {
           id="message"
           rows="2"
           name="message"
+          required
           class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Leave a comment..."
+          placeholder="Your Task"
         ></textarea>
 
         <div>
           <input
             className="rounded-lg mt-4"
-            required
+            
             placeholder="Name"
             type="file"
             name="image"

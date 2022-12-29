@@ -8,7 +8,7 @@ const MyTask = () => {
   console.log(tasks);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/deleteTask/${id}`, {
+    fetch(`https://task-server-lemon.vercel.app/deleteTask/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -23,7 +23,7 @@ const MyTask = () => {
   const handleComplete = (id) => {
    console.log("Inside handle complete");
 
-      fetch(`http://localhost:5000/addCompleted/${id}`, {
+      fetch(`https://task-server-lemon.vercel.app/addCompleted/${id}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -44,7 +44,7 @@ const MyTask = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/mytask/${user?.email}`)
+    fetch(`https://task-server-lemon.vercel.app/mytask/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setTasks(data));
   }, [user?.email]);

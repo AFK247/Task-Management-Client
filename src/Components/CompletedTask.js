@@ -9,7 +9,7 @@ const CompletedTask = () => {
   
 
   useEffect(() => {
-    fetch(`http://localhost:5000/completed/${user?.email}`)
+    fetch(`https://task-server-lemon.vercel.app/completed/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setTasks(data));
   }, [user?.email]);
@@ -17,7 +17,7 @@ const CompletedTask = () => {
   
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/deleteCompleted/${id}`, {
+    fetch(`https://task-server-lemon.vercel.app/deleteCompleted/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -32,7 +32,7 @@ const CompletedTask = () => {
   const handleNotComplete = (id) => {
     console.log("Inside handle Not complete");
 
-    fetch(`http://localhost:5000/addtasktoCompleted/${id}`, {
+    fetch(`https://task-server-lemon.vercel.app/addtasktoCompleted/${id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -62,7 +62,7 @@ const CompletedTask = () => {
     };
     console.log(comment);
 
-    fetch(`http://localhost:5000/comment`, {
+    fetch(`https://task-server-lemon.vercel.app/comment`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

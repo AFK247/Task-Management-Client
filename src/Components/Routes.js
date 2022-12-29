@@ -4,6 +4,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Main from "./Main";
 import MyTask from "./MyTask";
+import PrivateRoute from "./PrivateRoute";
 import Register from "./Register";
 import UpdateTask from "./UpdateTask";
 
@@ -29,19 +30,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/addtask',
-        element: <AddTask></AddTask>
+        element: <PrivateRoute><AddTask></AddTask></PrivateRoute>
       },
       {
         path: '/mytask',
-        element: <MyTask></MyTask>
+        element:  <PrivateRoute><MyTask></MyTask></PrivateRoute>
       },
       {
         path: '/update/:id',
-        element: <UpdateTask></UpdateTask>
+        element:  <PrivateRoute><UpdateTask></UpdateTask></PrivateRoute>
       },
       {
         path: '/completed',
-        element: <CompletedTask></CompletedTask>
+        element:  <PrivateRoute><CompletedTask></CompletedTask></PrivateRoute>
       },
       
     ]
