@@ -17,7 +17,7 @@ const Home = () => {
         message,
       };
 
-      fetch(`http://localhost:5000/addtask`, {
+      fetch(`https://task-server-lemon.vercel.app/addtask`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

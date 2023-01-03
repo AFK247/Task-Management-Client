@@ -10,7 +10,7 @@ const CompletedTask = () => {
   const { data: tasks = [], refetch } = useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
-        const res = await fetch(`http://localhost:5000/completed/${user?.email}`)
+        const res = await fetch(`https://task-server-lemon.vercel.app/completed/${user?.email}`)
         const data = await res.json();
         return data;
     }
@@ -19,7 +19,7 @@ const CompletedTask = () => {
   
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/deleteCompleted/${id}`, {
+    fetch(`https://task-server-lemon.vercel.app/deleteCompleted/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -33,7 +33,7 @@ const CompletedTask = () => {
   const handleNotComplete = (id) => {
     console.log("Inside handle Not complete");
 
-    fetch(`http://localhost:5000/addtasktoCompleted/${id}`, {
+    fetch(`https://task-server-lemon.vercel.app/addtasktoCompleted/${id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -63,7 +63,7 @@ const CompletedTask = () => {
     };
     console.log(comment);
 
-    fetch(`http://localhost:5000/comment`, {
+    fetch(`https://task-server-lemon.vercel.app/comment`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -74,8 +74,7 @@ const CompletedTask = () => {
       .then((newData) => {
         if (newData.acknowledged) {
           window.location.reload(false);
-          alert("Comment added successfully");
-        
+          alert("Comment added successfully"); 
         }
       })
       .catch((er) => console.error(er));

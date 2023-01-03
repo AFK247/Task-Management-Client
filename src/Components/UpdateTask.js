@@ -20,7 +20,7 @@ const UpdateTask = () => {
     };
     console.log(task);
 
-    fetch(`http://localhost:5000/updateTask/${id}`, {
+    fetch(`https://task-server-lemon.vercel.app/updateTask/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

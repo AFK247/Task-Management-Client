@@ -5,7 +5,7 @@ const Comments = ({ handleSubmit, handleNotComplete, handleDelete, task }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/comment/${task?._id}`)
+    fetch(`https://task-server-lemon.vercel.app/comment/${task?._id}`)
       .then((res) => res.json())
       .then((data) => setComments(data));
   }, [task?._id]);
