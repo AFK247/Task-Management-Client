@@ -1,21 +1,30 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthProvider";
 import TaskCard from "./TaskCard";
 
 const MyTask = () => {
   const { user } = useContext(AuthContext);
-  const [tasks, setTasks] = useState([]);
-  console.log(tasks);
+  
+  const { data: tasks = [], refetch } = useQuery({
+    queryKey: ['tasks'],
+    queryFn: async () => {
+        const res = await fetch(`http://localhost:5000/mytask/${user?.email}`)
+        const data = await res.json();
+        return data;
+    }
+});
 
   const handleDelete = (id) => {
-    fetch(`https://task-server-lemon.vercel.app/deleteTask/${id}`, {
+    fetch(`http://localhost:5000/deleteTask/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((newData) => {
         if (newData.deletedCount > 0) {
-          alert("suceessfully Deleted");
-          window.location.href = window.location.href;
+          // window.location.href = window.location.href;
+          refetch();
+          // alert("suceessfully Deleted");
         }
       });
   };
@@ -23,7 +32,7 @@ const MyTask = () => {
   const handleComplete = (id) => {
    console.log("Inside handle complete");
 
-      fetch(`https://task-server-lemon.vercel.app/addCompleted/${id}`, {
+      fetch(`http://localhost:5000/addCompleted/${id}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -33,21 +42,16 @@ const MyTask = () => {
         .then((res) => res.json())
         .then((newData) => {
           if (newData.acknowledged){
-              
-              window.location.href = window.location.href;
+              // window.location.href = window.location.href;
           } 
-
+          
         })
         .catch((er) => console.error(er));
 
 
   };
 
-  useEffect(() => {
-    fetch(`https://task-server-lemon.vercel.app/mytask/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setTasks(data));
-  }, [user?.email]);
+  
 
   return (
     <div>

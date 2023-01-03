@@ -1,30 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import Comments from "./Comments";
 
 const CompletedTask = () => {
   const { user } = useContext(AuthContext);
-  const [tasks, setTasks] = useState([]);
-  
 
-  useEffect(() => {
-    fetch(`https://task-server-lemon.vercel.app/completed/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setTasks(data));
-  }, [user?.email]);
+  const { data: tasks = [], refetch } = useQuery({
+    queryKey: ['tasks'],
+    queryFn: async () => {
+        const res = await fetch(`http://localhost:5000/completed/${user?.email}`)
+        const data = await res.json();
+        return data;
+    }
+});
 
   
 
   const handleDelete = (id) => {
-    fetch(`https://task-server-lemon.vercel.app/deleteCompleted/${id}`, {
+    fetch(`http://localhost:5000/deleteCompleted/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((newData) => {
         if (newData.deletedCount > 0) {
-          alert("suceessfully Deleted");
-          window.location.href = window.location.href;
+          refetch();
         }
       });
   };
@@ -32,7 +33,7 @@ const CompletedTask = () => {
   const handleNotComplete = (id) => {
     console.log("Inside handle Not complete");
 
-    fetch(`https://task-server-lemon.vercel.app/addtasktoCompleted/${id}`, {
+    fetch(`http://localhost:5000/addtasktoCompleted/${id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -43,7 +44,7 @@ const CompletedTask = () => {
       .then((newData) => {
         if (newData.acknowledged) {
           //    alert("Task added to my task");
-          window.location.href = window.location.href;
+          // window.location.href = window.location.href;
         }
       })
       .catch((er) => console.error(er));
@@ -62,7 +63,7 @@ const CompletedTask = () => {
     };
     console.log(comment);
 
-    fetch(`https://task-server-lemon.vercel.app/comment`, {
+    fetch(`http://localhost:5000/comment`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -72,8 +73,9 @@ const CompletedTask = () => {
       .then((res) => res.json())
       .then((newData) => {
         if (newData.acknowledged) {
+          window.location.reload(false);
           alert("Comment added successfully");
-          window.location.href = window.location.href;
+        
         }
       })
       .catch((er) => console.error(er));

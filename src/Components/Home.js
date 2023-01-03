@@ -17,7 +17,7 @@ const Home = () => {
         message,
       };
 
-      fetch(`https://task-server-lemon.vercel.app/addtask`, {
+      fetch(`http://localhost:5000/addtask`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -45,14 +45,18 @@ const Home = () => {
           >
             Enter Today's Task
           </label>
-          <textarea
+
+          {user?.email&&<textarea
             onKeyUp={handleSubmit}
             id="message"
             rows="2"
             name="message"
             class="block p-2.5 w-full text-sm text-gray-900 bg-red-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Enter your task"
-          ></textarea>
+          ></textarea>}
+
+{!user?.email && <h2 className="text-red-400 text-2xl m-4">LOGIN to Enter</h2>}
+
           <h2 className="text-2xl italic">Press Enter</h2>
         </form>
       </div>

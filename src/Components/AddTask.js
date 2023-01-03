@@ -18,7 +18,7 @@ const AddTask = () => {
         image
       };
 
-      fetch(`https://task-server-lemon.vercel.app/addtask`, {
+      fetch(`http://localhost:5000/addtask`, {
           method: "POST",
           headers: {
             "content-type": "application/json",

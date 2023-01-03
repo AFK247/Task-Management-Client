@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 const Comments = ({ handleSubmit, handleNotComplete, handleDelete, task }) => {
   const [comments, setComments] = useState([]);
-  console.log(comments);
 
   useEffect(() => {
-    fetch(`https://task-server-lemon.vercel.app/comment/${task?._id}`)
+    fetch(`http://localhost:5000/comment/${task?._id}`)
       .then((res) => res.json())
       .then((data) => setComments(data));
   }, [task?._id]);
+
 
   return (
     <div className="flex flex-col md:flex-row bg-green-200 rounded-lg shadow-lg">
